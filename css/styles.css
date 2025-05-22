@@ -340,6 +340,21 @@ h1, .h1 {
 }
 
 
+@media (max-width: 500px) {
+
+
+.home-info h3,.typing{
+  font-size: 18px;
+}
+
+.home-info p{
+  font-size: 12px;
+}
+
+}
+
+
+
 @media (min-width: 1200px) {
   h1, .h1 {
     font-size: 2.5rem;
