@@ -26,31 +26,72 @@ function showPopup() {
 
 /*----- EMAIL JS ------*/
 
-function sendMail(){
-    var params = {
-        name:document.getElementById("name").value,
-        email:document.getElementById("email").value,
-        subject:document.getElementById("subject").value,
-        message:document.getElementById("message").value
+function sendMail() {
+  
+  const name = document.getElementById("name");
+  const email = document.getElementById("email");
+  const subject = document.getElementById("subject");
+  const message = document.getElementById("message");
 
-    };
+  
+  [name, email, subject, message].forEach((field) => {
+    field.classList.remove("is-invalid");
+  });
 
 
-const serviceID = "service_a8jubza";
-const templateID = "template_jiket5l";
+  let isValid = true;
 
-emailjs.send(serviceID,templateID,params)
-.then( (res) => {
-    document.getElementById("name").value = "";
-    document.getElementById("email").value = "";
-    document.getElementById("subject").value = "";
-    document.getElementById("message").value = "";
-    console.log(res);
-    showPopup();
-})
+  if (!name.value.trim()) {
+    name.classList.add("is-invalid");
+    isValid = false;
+  }
 
-.catch((err) => console.log(err));
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!email.value.trim() || !emailPattern.test(email.value)) {
+    email.classList.add("is-invalid");
+    isValid = false;
+  }
 
+  if (!subject.value.trim()) {
+    subject.classList.add("is-invalid");
+    isValid = false;
+  }
+
+  if (!message.value.trim()) {
+    message.classList.add("is-invalid");
+    isValid = false;
+  }
+
+  // If any field is invalid, stop the process
+  if (!isValid) {
+    return;
+  }
+
+  // Prepare email parameters
+  const params = {
+    name: name.value,
+    email: email.value,
+    subject: subject.value,
+    message: message.value,
+  };
+
+  const serviceID = "service_a8jubza";
+  const templateID = "template_jiket5l";
+
+  emailjs.send(serviceID, templateID, params)
+    .then((res) => {
+      // Clear the form
+      name.value = "";
+      email.value = "";
+      subject.value = "";
+      message.value = "";
+
+      // Show success popup
+      showPopup();
+    })
+    .catch((err) => {
+      console.log("EmailJS Error:", err);
+    });
 }
 
 
