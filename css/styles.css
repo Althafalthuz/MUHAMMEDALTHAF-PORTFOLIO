@@ -353,6 +353,20 @@ h1, .h1 {
 
 }
 
+@media (max-width: 400px) {
+
+
+.home-info h3,.typing{
+  font-size: 10px;
+}
+
+.home-info p{
+  font-size: 8px;
+}
+
+}
+
+
 
 
 @media (min-width: 1200px) {
